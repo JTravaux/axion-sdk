@@ -1,0 +1,18 @@
+{
+  "name": "axion-sdk",
+  "version": "1.0.0",
+  "description": "Easily access information directly from the Axion smart contracts",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JTravaux/axion-sdk.git"
+  },
+  "keywords": [
+    "Axion"
+  ],
+  "author": "Jordan Travaux",
+  "license": "MIT"
+}
