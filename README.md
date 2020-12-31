@@ -2,7 +2,7 @@
 Easily access information directly from the Axion smart contracts on the Ethereum blockchain.
 
 ### Setup
-Using NPM, simply type: `npm i axion-sdk`
+coming soon.
 
 ### Usage
 If using in a browser: 
