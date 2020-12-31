@@ -53,6 +53,20 @@ class Auction {
     */ getCurrentAuctionBid() {
         return this.contract.methods.getUniswapMiddlePriceForSevenDays().call();
     }
+
+    /**
+    * Subscribe to auction 'bid' events. Occurs when someone enters the current auction.
+    * @returns {Promise<EventEmitter>} Promise that resolves to an EventEmitter.
+    */ subscribeToBidEvents() {
+        return this.contract.events.Bid();
+    }
+
+    /**
+    * Subscribe to auction 'Withdraval' events. Occurs when someone withdraws from an auction.
+    * @returns {Promise<EventEmitter>} Promise that resolves to an EventEmitter.
+    */ subscribeToWithdrawEvents() {
+        return this.contract.events.Withdraval();
+    }
 }
 
 module.exports = Auction;

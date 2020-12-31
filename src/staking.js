@@ -19,6 +19,20 @@ class Staking {
     */ getTotalShares() {
         return this.contract.methods.sharesTotalSupply().call();
     }
+
+    /**
+    * Subscribe to auction 'Stake' events. Occurs when someone creates a new stake.
+    * @returns {Promise<EventEmitter>} Promise that resolves to an EventEmitter.
+    */ subscribeToStakeEvents() {
+        return this.contract.events.Stake();
+    }
+
+    /**
+    * Subscribe to auction 'Unstake' events. Occurs when someone unstakes.
+    * @returns {Promise<EventEmitter>} Promise that resolves to an EventEmitter.
+    */ subscribeToUnstakeEvents() {
+        return this.contract.events.Unstake();
+    }
 }
 
 module.exports = Staking;

@@ -1,9 +1,9 @@
 const Eth = require('web3-eth');
-const Auction = require('./lib/auction');
-const BigPayDay = require('./lib/bigPayDay');
-const ForeignSwap = require('./lib/foreignSwap');
-const Staking = require('./lib/staking');
-const Token = require('./lib/token');
+const Auction = require('./src/auction');
+const BigPayDay = require('./src/bigPayDay');
+const ForeignSwap = require('./src/foreignSwap');
+const Staking = require('./src/staking');
+const Token = require('./src/token');
 
 const BPD_ABI = require('./contracts/bpd.json');
 const TOKEN_ABI = require('./contracts/token.json');
