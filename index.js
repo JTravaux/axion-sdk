@@ -1,9 +1,9 @@
 const Eth = require('web3-eth');
+const Token = require('./src/token');
 const Auction = require('./src/auction');
+const Staking = require('./src/staking');
 const BigPayDay = require('./src/bigPayDay');
 const ForeignSwap = require('./src/foreignSwap');
-const Staking = require('./src/staking');
-const Token = require('./src/token');
 
 const BPD_ABI = require('./contracts/bpd.json');
 const TOKEN_ABI = require('./contracts/token.json');
@@ -23,10 +23,10 @@ class Axion {
     
     /**
     * Construct a class that contains properties and methods
-    * to access data from the Axion smart contracts.
+    * to access data from the Axion smart contracts on the Ethereum blockchain.
     * 
-    * Most Ethereum-supported browsers like MetaMask have an EIP-1193 compliant provider available at `window.ethereum`.
-    * For web3.js, check `Web3.givenProvider`. If this property is `null`, or if this code is running on a server,
+    * Most Ethereum-supported browsers like MetaMask have an compliant provider available at `window.ethereum`.
+    * For web3.js users, check `Web3.givenProvider` or `Eth.givenProvider`. If this property is `null`, or if this code is running on a server,
     * you should pass a string to connect to a remote node such as infura.
     * @class
     * @constructor
@@ -42,8 +42,7 @@ class Axion {
         const AUCTION_CONTRACT = new eth.Contract(AUCTION_ABI, AUCTION_ADDRESS);
         const FOREIGN_SWAP_CONTRACT = new eth.Contract(FOREIGN_ABI, FOREIGN_ADDRESS);
 
-        // Initialize "public" variables
-        this.provider = eth;
+        // Initialize properties
         this.bpd = new BigPayDay(BPD_CONTRACT);
         this.token = new Token(TOKEN_CONTRACT);
         this.staking = new Staking(STAKING_CONTRACT);
@@ -52,7 +51,8 @@ class Axion {
 
         // Helpful utility methods
         this.util = {
-            getCurrentBlock: () => this.eth.getBlockNumber()
+            getCurrentBlock: () => this.eth.getBlockNumber(),
+            getProvider: () => eth
         }
     }
 }
