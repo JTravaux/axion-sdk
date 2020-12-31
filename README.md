@@ -4,7 +4,7 @@ Easily access information directly from the Axion smart contracts on the Ethereu
 ### Setup
 - Clone this repository ``git clone https://github.com/JTravaux/axion-sdk.git``
 - Package it up ``npm pack``
-- Open the generated .tgz file & copy contents of the `package` folder to a new `axion-sdx` folder within the `node_modules` folder. 
+- Open the generated .tgz file & copy contents of the `package` folder to a new `axion-sdk` folder within the `node_modules` folder. 
 - Install the only dependency: ``npm i web3-eth``
 
 npm coming soon™?
