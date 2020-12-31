@@ -2,11 +2,15 @@
 Easily access information directly from the Axion smart contracts on the Ethereum blockchain.
 
 ### Setup
-coming soon.
+- Clone this repository ``git clone https://github.com/JTravaux/axion-sdk.git``
+- Package it up ``npm pack``
+- Open the generated .tgz file & copy contents of the `package` folder to a new `axion-sdx` folder within the `node_modules` folder. 
 
+npm coming soon™?
 ### Usage
 If using in a browser: 
 ```javascript
+import Web3 from 'web3';
 import Axion from 'axion-sdk';
 
 const axion = new Axion(Web3.givenProvider);
