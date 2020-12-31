@@ -51,8 +51,8 @@ class Axion {
 
         // Helpful utility methods
         this.util = {
-            getCurrentBlock: () => this.eth.getBlockNumber(),
-            getProvider: () => eth
+            getProvider: () => eth,
+            getCurrentBlock: () => eth.getBlockNumber()
         }
     }
 }
