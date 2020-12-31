@@ -6,6 +6,7 @@ Easily access information directly from the Axion smart contracts on the Ethereu
 - Package it up ``npm pack``
 - Open the generated .tgz file & copy contents of the `package` folder to a new `axion-sdk` folder within the `node_modules` folder. 
 - Install the only dependency: ``npm i web3-eth``
+    - If you've already installed web3 with ``npm i web3``, you will already have this package.
 
 npm coming soon™?
 ### Usage
