@@ -33,6 +33,38 @@ class Staking {
     */ subscribeToUnstakeEvents() {
         return this.contract.events.Unstake();
     }
+
+    /**
+    * Get Stake events between two blocks.
+    * @param {string|number} start - The block to start from
+    * @param {string|number} end - The block to end on. Defaults to latest block if omitted.
+    * @returns {Promise<EventData[]>} Promise that resolves to an array of the Stake events.
+    */ getPastStakeEvents(start, end = 'latest') {
+        if (!start)
+            throw new Error("Missing parameter: You must provide a start block.");
+        else {
+            return this.contract.getPastEvents("Stake", {
+                fromBlock: start,
+                toBlock: end
+            });
+        }
+    }
+
+    /**
+    * Get Unstake events between two blocks.
+    * @param {string|number} start - The block to start from
+    * @param {string|number} end - The block to end on. Defaults to latest block if omitted.
+    * @returns {Promise<EventData[]>} Promise that resolves to an array of the Unstake events.
+    */ getPastUnstakeEvents(start, end = 'latest') {
+        if (!start)
+            throw new Error("Missing parameter: You must provide a start block.");
+        else {
+            return this.contract.getPastEvents("Unstake", {
+                fromBlock: start,
+                toBlock: end
+            });
+        }
+    }
 }
 
 module.exports = Staking;
