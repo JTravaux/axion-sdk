@@ -1,7 +1,15 @@
 const { BPD_ADDRESS } = require('../util/constants');
 
 class BigPayDay {
-    constructor(contract) {
+    
+    /**
+    * Construct a class that contains properties and methods 
+    * related to Axion's BigPayDay contract.
+    *
+    * @class
+    * @constructor
+    * @param contract - A valid `web3.eth.Contract` object
+    */ constructor(contract) {
         this.contract = contract;
         this.address = BPD_ADDRESS;
     }

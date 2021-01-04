@@ -1,8 +1,18 @@
 const { STAKING_ADDRESS } = require('../util/constants');
 
 class Staking {
-    constructor(contract) {
-        this.contract = contract;
+
+    /**
+    * Construct a class that contains properties and methods 
+    * related to Axion's Staking contract.
+    *
+    * @class
+    * @constructor
+    * @param contract1 - A valid `web3.eth.Contract` object  (layer 1 contract)
+    * @param contract2 - A valid `web3.eth.Contract` object (layer 2 contract)
+    */ constructor(contract1, contract2) {
+        this.contract = contract2;
+        this.contract_L1 = contract1;
         this.address = STAKING_ADDRESS;
     }
 

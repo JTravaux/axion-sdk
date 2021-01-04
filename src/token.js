@@ -1,13 +1,22 @@
-const { TOKEN_ADDRESS, USDT_ADDRESS, ONE_18_ZEROS } = require('../util/constants');
+const { EtherscanProvider } = require("@ethersproject/providers");
+const { TOKEN_ADDRESS, USDT_ADDRESS, ONE_18_ZEROS, ETHERSCAN_SHARED_API_KEY } = require('../util/constants');
 const { Fetcher, Trade, Route, TradeType, WETH, ChainId, Token: UniswapToken, TokenAmount } = require('@uniswap/sdk');
 
 class Token {
-    constructor(contract) {
+
+    /**
+    * Construct a class that contains properties and methods 
+    * related to Axion's Token contract.
+    *
+    * @class
+    * @constructor
+    * @param contract - A valid `web3.eth.Contract` object
+    */ constructor(contract) {
         this.contract = contract;
         this.address = TOKEN_ADDRESS;
-
-        this.usdt_token = new UniswapToken(ChainId.MAINNET, USDT_ADDRESS, 6);
-        this.axn_token = new UniswapToken(ChainId.MAINNET, TOKEN_ADDRESS, 18);
+        this.provider = new EtherscanProvider(null, ETHERSCAN_SHARED_API_KEY)
+        this.usdt_token = new UniswapToken(ChainId.MAINNET, USDT_ADDRESS, 6, "USDT", "Tether USD");
+        this.axn_token = new UniswapToken(ChainId.MAINNET, TOKEN_ADDRESS, 18, "AXN", "Axion");
     }
 
     /**
@@ -23,9 +32,7 @@ class Token {
     */getAxionPricePerEth() {
         return new Promise(async (resolve, reject) => {
             try {
-
-                // TODO: Add the 3rd parameter, Provider.
-                const PAIR = await Fetcher.fetchPairData(WETH[this.axn_token.chainId], this.axn_token);
+                const PAIR = await Fetcher.fetchPairData(WETH[this.axn_token.chainId], this.axn_token, this.provider);
                 const TRADE = new Trade(
                     new Route([PAIR], WETH[this.axn_token.chainId]),
                     new TokenAmount(WETH[this.axn_token.chainId], ONE_18_ZEROS),
@@ -43,10 +50,8 @@ class Token {
     */ getUsdtPricePerAxn() {
         return new Promise(async (resolve, reject) => {
             try {
-
-                // TODO: Add the 3rd parameter, Provider.
-                const AXIONETHPair = await Fetcher.fetchPairData(this.axn_token, WETH[ChainId.MAINNET])
-                const ETHUSDTPair = await Fetcher.fetchPairData(WETH[ChainId.MAINNET], this.usdt_token)
+                const AXIONETHPair = await Fetcher.fetchPairData(this.axn_token, WETH[ChainId.MAINNET], this.provider)
+                const ETHUSDTPair = await Fetcher.fetchPairData(WETH[ChainId.MAINNET], this.usdt_token, this.provider)
 
                 const TRADE = new Trade(
                     new Route([AXIONETHPair, ETHUSDTPair], this.axn_token),
@@ -57,6 +62,13 @@ class Token {
                 resolve(TRADE.executionPrice.toSignificant(6))
             } catch (err) { reject(err) }
         })
+    }
+
+    async getCirculatingMarketCap()  {
+        const PRICE =  await this.getUsdtPricePerAxn();
+        const SUPPLY = await this.getCirculatingSupply();
+        const MARKET_CAP = PRICE * SUPPLY;
+        return (MARKET_CAP / ONE_18_ZEROS);
     }
 }
 
